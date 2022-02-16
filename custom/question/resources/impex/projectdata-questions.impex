@@ -1,0 +1,15 @@
+$defaultPassword = 1234
+
+$regulargroup = regulargroup
+$customergroup = customergroup
+
+INSERT_UPDATE Usergroup; uid[unique = true]; groups(uid)[mode = append]
+                       ; $regulargroup     ; customergroup
+
+INSERT_UPDATE Customer; uid[unique = true]; groups(uid)   ; password         ; name
+                      ; C001              ; customergroup ; $defaultPassword ; MinecraftGenius
+                      ; C002              ; customergroup ; $defaultPassword ; TypicalLamer
+
+INSERT_UPDATE Question; code[unique = true]; question     ; questionCustomer(uid); product(code)
+                      ; Q001               ; What is it?? ; c001                 ; 201702 ;
+                      ; Q002               ; Hi all       ; c002                 ; 201702 ;

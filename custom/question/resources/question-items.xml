@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ Copyright (c) 2019 SAP SE or an SAP affiliate company. All rights reserved.
+-->
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:noNamespaceSchemaLocation="items.xsd">
+	<relations>
+		<relation code="Question2Product" localized="false">
+			<sourceElement qualifier="question" type="Question" collectiontype="set" cardinality="many" ordered="false">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</sourceElement>
+			<targetElement qualifier="product" type="Product" cardinality="one">
+				<modifiers read="true" write="true" search="true" optional="true" />
+			</targetElement>
+		</relation>
+	</relations>
+
+	<itemtypes>
+		<itemtype code="QuestionCMSComponent" generate="true"
+				  jaloclass="com.question.jalo.cms2.components.QuestionCMSComponent"
+				  extends="SimpleCMSComponent" autocreate="true">
+			<description>It represents paragraph component with an additional question attribute.</description>
+			<attributes>
+				<attribute qualifier="numberOfQuestions" type="java.lang.Integer">
+					<defaultvalue>0</defaultvalue>
+					<description>Number of questions</description>
+					<persistence type="property"/>
+					<modifiers optional="false"/>
+				</attribute>
+				<attribute qualifier="fontSize" type="java.lang.Integer">
+					<description>Size of font</description>
+					<persistence type="property"/>
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="Product" autocreate="false" generate="false">
+			<attributes>
+				<attribute autocreate="true" qualifier="questionCount" type="java.lang.Integer"
+						   generate="true">
+					<persistence type="property" />
+					<modifiers read="true" write="true" search="true"
+							   initial="true" optional="true" unique="false" />
+				</attribute>
+			</attributes>
+		</itemtype>
+
+		<itemtype code="Question" generate="true" autocreate="true">
+			<deployment table="Questions" typecode="30000" />
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<defaultvalue>qCodeDefault</defaultvalue>
+					<description>Code for question</description>
+					<persistence type="property" />
+					<modifiers optional="false" unique="true"/>
+				</attribute>
+				<attribute qualifier="question" type="java.lang.String">
+					<defaultvalue>QuestionDefault</defaultvalue>
+					<persistence type="property" />
+					<modifiers optional="false"/>
+				</attribute>
+				<attribute qualifier="questionCustomer" type="Customer">
+					<defaultvalue>qQuestionCustomerDefault</defaultvalue>
+					<persistence type="property" />
+					<modifiers optional="false" />
+				</attribute>
+				<attribute qualifier="answer" type="java.lang.String">
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="answerCustomer" type="Customer">
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+	</itemtypes>
+</items>
