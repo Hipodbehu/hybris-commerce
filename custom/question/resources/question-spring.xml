@@ -47,5 +47,16 @@
 
 	<bean id="customQuestionPopulator"
 		  class="com.question.converters.populators.CustomQuestionPopulator"/>
+	
+	<bean id="questionService" class="com.question.service.impl.DefaultQuestionService">
+		<property name="questionDao" ref="questionDao"/>
+	</bean>
 
+	<alias name="defaultQuestionFacade" alias="questionFacade"/>
+	<bean id="defaultQuestionFacade" class="com.question.facades.impl.DefaultQuestionFacade">
+		<property name="questionService" ref="questionService"/>
+	</bean>
+
+	<bean id="questionDao" class="com.question.daos.impl.DefaultQuestionDao"
+		  parent="abstractItemDao"/>
 </beans>

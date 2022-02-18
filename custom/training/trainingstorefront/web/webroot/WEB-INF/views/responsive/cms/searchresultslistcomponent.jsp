@@ -14,9 +14,9 @@
 
     <nav:pagination top="true"  supportShowPaged="${isShowPageAllowed}" supportShowAll="${isShowAllAllowed}" searchPageData="${searchPageData}" searchUrl="${searchPageData.currentQuery.url}"  numberPagesShown="${numberPagesShown}"/>
     <ul class="product__listing product__list">
-            <c:forEach items="${searchPageData.results}" var="product">
-                <product:productListerItem product="${product}"/>
-            </c:forEach>
+        <c:forEach items="${searchPageData.results}" var="product">
+            <product:productListerItem product="${product}"/>
+        </c:forEach>
     </ul>
 
     <div id="addToCartTitle" class="display-none">

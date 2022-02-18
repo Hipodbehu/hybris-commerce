@@ -1,15 +1,6 @@
-$defaultPassword = 1234
+$productCatalog = apparelProductCatalog
+$catalogVersion = catalogversion(catalog(id[default=$productCatalog]), version[default='Staged'])[unique=true, default=$productCatalog:Staged]
 
-$regulargroup = regulargroup
-$customergroup = customergroup
-
-INSERT_UPDATE Usergroup; uid[unique = true]; groups(uid)[mode = append]
-                       ; $regulargroup     ; customergroup
-
-INSERT_UPDATE Customer; uid[unique = true]; groups(uid)   ; password         ; name
-                      ; C001              ; customergroup ; $defaultPassword ; MinecraftGenius
-                      ; C002              ; customergroup ; $defaultPassword ; TypicalLamer
-
-INSERT_UPDATE Question; code[unique = true]; question     ; questionCustomer(uid); product(code)
-                      ; Q001               ; What is it?? ; c001                 ; 201702 ;
-                      ; Q002               ; Hi all       ; c002                 ; 201702 ;
+INSERT_UPDATE Question; $catalogVersion; code[unique = true]; question     ; questionCustomer(uid)           ; product($catalogVersion, code)
+                      ;                ; Q001               ; What is it?? ; ulf.becker@rustic-hw.com        ; M27160_B ;
+                      ;                ; Q002               ; Hi all       ; screwdriverslover@pronto-hw.com ; M27160_B ;

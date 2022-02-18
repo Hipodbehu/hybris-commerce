@@ -1,2 +1,4 @@
-INSERT_UPDATE SolrIndexedProperty; name[unique = true]; type(code); fieldValueProvider    ; valueProviderParameter
-                                 ; questionCount      ; int       ; springELValueProvider ; questionCount
+$solrIndexedType=electronics-ProductType
+
+INSERT_UPDATE SolrIndexedProperty; solrIndexedType(identifier)[unique = true]; name[unique = true]; type(code); localized[default = false]; fieldValueProvider
+                                 ; $solrIndexedType                          ; questionCount      ; int       ;                           ; productQuestionCountValueProvider

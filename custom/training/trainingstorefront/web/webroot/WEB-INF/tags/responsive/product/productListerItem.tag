@@ -26,6 +26,7 @@
 		</a>
 		<ycommerce:testId code="searchPage_productName_link_${product.code}">
 			<a class="product__list--name" href="${fn:escapeXml(productUrl)}">${ycommerce:sanitizeHTML(product.name)}</a>
+
 		</ycommerce:testId>
 
 		<div class="product__list--price-panel">

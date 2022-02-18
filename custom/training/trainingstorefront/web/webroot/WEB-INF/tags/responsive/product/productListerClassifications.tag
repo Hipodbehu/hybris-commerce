@@ -7,10 +7,10 @@
 	<dl class="product-classification">
 		<c:forEach items="${product.classifications}" var="classification">
 
-					<c:forEach items="${classification.features}" var="feature">
-						<dd>
-							<strong>${fn:escapeXml(feature.name)}:</strong>
-							<span>
+			<c:forEach items="${classification.features}" var="feature">
+				<dd>
+					<strong>${fn:escapeXml(feature.name)}:</strong>
+					<span>
 								<c:forEach items="${feature.featureValues}" var="value" varStatus="status">
 									${fn:escapeXml(value.value)}
 									<c:choose>
@@ -24,8 +24,8 @@
 									</c:choose>
 								</c:forEach>
 							</span>
-						</dd>
-					</c:forEach>
+				</dd>
+			</c:forEach>
 		</c:forEach>
 	</dl>
 </c:if>
