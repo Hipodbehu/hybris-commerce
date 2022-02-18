@@ -51,7 +51,22 @@
 
 		<itemtype code="Question" generate="true" autocreate="true">
 			<deployment table="Questions" typecode="30000" />
+			<custom-properties>
+				<property name="catalogItemType">
+					<value>java.lang.Boolean.TRUE</value>
+				</property>
+				<property name="catalogVersionAttributeQualifier">
+					<value>"catalogVersion"</value>
+				</property>
+				<property name="uniqueKeyAttributeQualifier">
+					<value>"code"</value>
+				</property>
+			</custom-properties>
 			<attributes>
+				<attribute qualifier="catalogVersion" type="CatalogVersion">
+					<modifiers read="true" write="false" search="true" initial="true" optional="false" unique="true"/>
+					<persistence type="property"/>
+				</attribute>
 				<attribute qualifier="code" type="java.lang.String">
 					<defaultvalue>qCodeDefault</defaultvalue>
 					<description>Code for question</description>

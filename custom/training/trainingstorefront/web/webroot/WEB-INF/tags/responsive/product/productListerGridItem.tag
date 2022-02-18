@@ -27,10 +27,14 @@
 
 			<ycommerce:testId code="product_productName">
 				<a class="name" href="${fn:escapeXml(productUrl)}">
-					<c:out escapeXml="false" value="${ycommerce:sanitizeHTML(product.name)}" />
+					<c:out escapeXml="false" value="${ycommerce:sanitizeHTML(product.name)} " />
 				</a>
+				<br/>
+				<c:if test="${product.questionCount > 0}">
+					QuestionCount:${product.questionCount}
+				</c:if>
 			</ycommerce:testId>
-		
+
 			<c:if test="${not empty product.potentialPromotions}">
 				<div class="promo">
 					<c:forEach items="${product.potentialPromotions}" var="promotion">
@@ -38,21 +42,21 @@
 					</c:forEach>
 				</div>
 			</c:if>
-			
+
 			<ycommerce:testId code="product_productPrice">
 				<div class="price"><product:productListerItemPrice product="${product}"/></div>
 			</ycommerce:testId>
 			<c:forEach var="variantOption" items="${product.variantOptions}">
 				<c:forEach items="${variantOption.variantOptionQualifiers}" var="variantOptionQualifier">
 					<c:if test="${variantOptionQualifier.qualifier eq 'rollupProperty'}">
-	                    <c:set var="rollupProperty" value="${variantOptionQualifier.value}"/>
-	                </c:if>
+						<c:set var="rollupProperty" value="${variantOptionQualifier.value}"/>
+					</c:if>
 					<c:if test="${variantOptionQualifier.qualifier eq 'thumbnail'}">
-	                    <c:set var="imageUrlHtml" value="${fn:escapeXml(variantOptionQualifier.value)}"/>
-	                </c:if>
-	                <c:if test="${variantOptionQualifier.qualifier eq rollupProperty}">
-	                    <c:set var="variantNameHtml" value="${fn:escapeXml(variantOptionQualifier.value)}"/>
-	                </c:if>
+						<c:set var="imageUrlHtml" value="${fn:escapeXml(variantOptionQualifier.value)}"/>
+					</c:if>
+					<c:if test="${variantOptionQualifier.qualifier eq rollupProperty}">
+						<c:set var="variantNameHtml" value="${fn:escapeXml(variantOptionQualifier.value)}"/>
+					</c:if>
 				</c:forEach>
 				<img style="width: 32px; height: 32px;" src="${imageUrlHtml}" title="${variantNameHtml}" alt="${variantNameHtml}"/>
 			</c:forEach>
