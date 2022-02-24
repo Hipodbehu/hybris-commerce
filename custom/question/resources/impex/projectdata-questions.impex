@@ -1,6 +1,10 @@
-$contentCatalog = apparel-ukContentCatalog
-$catalogVersion = catalogversion(catalog(id[default=$contentCatalog]), version[default='Staged'])[unique=true, default=$contentCatalog:Staged]
+$contentCatalog = electronicsProductCatalog
+$catalogVersion = catalogVersion(catalog(id[default=$contentCatalog]), version[default='Online'])
 
-INSERT_UPDATE Question; code[unique = true]; question     ; questionCustomer(uid)           ; product(code)
-                      ; Q001               ; What is it?? ; ulf.becker@rustic-hw.com        ; 45572 ;
-                      ; Q002               ; Hi all       ; screwdriverslover@pronto-hw.com ; 45572 ;
+INSERT_UPDATE Question; $catalogVersion; code[unique = true]; question          ; questionCustomer(uid)           ; product(code, $catalogVersion)
+                      ;                ; Q001               ; What is it??      ; ulf.becker@rustic-hw.com        ; 1934406 ;
+                      ;                ; Q002               ; Hi all            ; screwdriverslover@pronto-hw.com ; 1934406 ;
+                      ;                ; Q003               ; Shalala           ; ulf.becker@rustic-hw.com        ; 3965240 ;
+                      ;                ; Q004               ; Is it a question? ; screwdriverslover@pronto-hw.com ; 3965240 ;
+                      ;                ; Q005               ; Good?             ; screwdriverslover@pronto-hw.com ; 3514520 ;
+

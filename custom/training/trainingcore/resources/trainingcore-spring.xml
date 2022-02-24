@@ -538,15 +538,4 @@
 		<property name="itemCleanupHooks" ref="csTicketRetentionHooks"/>
 		<property name="ticketBusinessService" ref="ticketBusinessService"/>
 	</bean>
-
-	<bean id="productUnitValueProvider"
-		  class="de.hybris.training.core.search.solrfacetsearch.provider.impl.ProductUnitValueProvider" >
-		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
-		<property name="commonI18NService" ref="commonI18NService"/>
-	</bean>
-
-	<bean id="productQuestionCountValueProvider"
-		  class="de.hybris.training.core.search.solrfacetsearch.provider.impl.ProductQuestionCountValueProvider" >
-		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>
-	</bean>
 </beans>

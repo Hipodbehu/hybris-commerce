@@ -23,8 +23,11 @@
 		<property name="questionCustomerName" type="String"/>
 		<property name="answer" type="String"/>
 	</bean>
-	<bean class="com.question.data.ProductData" extends="de.hybris.platform.commercefacades.product.data.ProductData">
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
 		<property name="questionCount" type="Integer"/>
 		<property name="questions" type="java.util.List&lt;com.question.data.QuestionData&gt;"/>
 	</bean>
+	<enum class="de.hybris.platform.commercefacades.product.ProductOption">
+		<value>QUESTIONS</value>
+	</enum>
 </beans>

@@ -1,9 +1,8 @@
-$contentCatalog = apparel-ukContentCatalog
-$contentCatalogName = Apparel UK Content Catalog
-$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$contentCatalog = electronicsContentCatalog
+$contentCV = catalogVersion(catalog(id[default=$contentCatalog]), version[default='Online'])
 
-INSERT_UPDATE QuestionCMSComponent; $contentCV[unique = true]; uid[unique = true]            ; name                   ; numberOfQuestions; fontSize; &componentRef
-                                   ;                          ; HomePageQuestionCMSComponent ; Question CMS Component ; 3                ; 12      ; HomePageQuestionCMSComponent
+INSERT_UPDATE QuestionCMSComponent; $contentCV[unique = true]; uid[unique = true]          ; name                   ; numberOfQuestions; fontSize; &componentRef
+                                  ;                          ; DefaultQuestionCMSComponent ; Question CMS Component ; 3                ; 12      ; DefaultQuestionCMSComponent
 
-UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]    ; active; cmsComponents(&componentRef)
-                  ;                          ; Section1Slot-Homepage ; true  ; HomePageQuestionCMSComponent
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]          ; active; cmsComponents(&componentRef)
+                         ;                          ; Section3-ProductDetailsSlot ; true  ; DefaultQuestionCMSComponent
