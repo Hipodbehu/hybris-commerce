@@ -1,0 +1,49 @@
+$contentCatalog = electronicsContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]), CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$lang = en
+$wideContent = CMSImageComponent, BannerComponent
+$jarResource = jar:de.hybris.training.core.setup.CoreSystemSetup&/trainingcore/import/cockpits/cmscockpit
+$emailResource = jar:de.hybris.training.core.setup.CoreSystemSetup&/trainingcore/import/emails
+
+# Email page Template
+INSERT_UPDATE EmailPageTemplate; $contentCV[unique = true]; uid[unique = true]    ; name                    ; active; frontendTemplateName; subject(code)                      ; htmlTemplate(code)        ; restrictedPageTypes(code)
+                               ;                          ; QuestionEmailTemplate ; Question Email Template ; true  ; questionEmail       ; electronics_Email_Question_Subject ; electronics_Email_Question_Body ; EmailPage
+
+# Templates for WCMS Cockpit Page Edit# Templates for WCMS Cockpit Page Edit
+UPDATE EmailPageTemplate; $contentCV[unique = true]; uid[unique = true]    ; velocityTemplate[translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                        ;                          ; QuestionEmailTemplate ; $jarResource/structure-view/structure_customerRegistrationEmailTemplate.vm
+
+INSERT_UPDATE ContentSlotName; name[unique = true]; template(uid, $contentCV)[unique = true][default = 'QuestionEmailTemplate']; validComponentTypes(code)
+                             ; SiteLogo           ;                                                                            ; CMSImageComponent,BannerComponent
+                             ; TopContent         ;                                                                            ; $wideContent ;
+                             ; BottomContent      ;                                                                            ; $wideContent ;
+                             ; Footer             ;                                                                            ; CMSLinkComponent,CMSParagraphComponent
+
+# Email velocity templates
+INSERT_UPDATE RendererTemplate; code[unique = true]                ; contextClass; rendererType(code)[default = 'velocity']
+                              ; electronics_Email_Question_Body    ; de.hybris.platform.commerceservices.process.email.context.QuestionEmailContext
+                              ; electronics_Email_Question_Subject ; de.hybris.platform.commerceservices.process.email.context.QuestionEmailContext
+
+# Email velocity templates
+UPDATE RendererTemplate; code[unique = true]                ; description[lang = $lang]; templateScript[lang = $lang, translator = de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+                       ; electronics_Email_Question_Body    ; Question HTML Email      ; $emailResource/email-questionEmailBody.vm
+                       ; electronics_Email_Question_Subject ; Question Email Subject   ; $emailResource/email-questionEmailSubject.vm
+
+# Question Email Page
+INSERT_UPDATE EmailPage; $contentCV[unique = true]; uid[unique = true]; name           ; masterTemplate(uid, $contentCV); defaultPage; approvalStatus(code)[default = 'approved']; fromEmail[lang = en]; fromName[lang = en]
+                       ;                          ; QuestionEmail     ; Question Email ; QuestionEmailTemplate          ; false      ;                                           ; from@website.com    ; From Website
+
+# WCMS Image Components
+INSERT_UPDATE CMSImageComponent; $contentCV[unique = true]; uid[unique = true]        ; name
+                               ;                          ; EmailBannerSaleNowOnImage ; Email Banner Sale Now On Image
+
+# Content Slots
+INSERT_UPDATE ContentSlot; $contentCV[unique = true]; uid[unique = true]; name                   ; active; cmsComponents(uid, $contentCV)
+                         ;                          ; EmailTopSlot      ; Default Email Top Slot ; true  ; EmailBannerSaleNowOnImage
+
+# Bind Content Slots to Email Page Templates
+INSERT_UPDATE ContentSlotForTemplate; $contentCV; uid[unique = true]          ; position[unique = true]; pageTemplate(uid, $contentCV)[unique = true][default = 'QuestionEmailTemplate']; contentSlot(uid, $contentCV)[unique = true]; allowOverwrite
+                                    ;           ; SiteLogo-QuestionEmail      ; SiteLogo               ;                                                                                ; SiteLogoSlot                               ; true
+                                    ;           ; Footer-QuestionEmail        ; Footer                 ;                                                                                ; FooterSlot                                 ; true
+                                    ;           ; TopContent-QuestionEmail    ; TopContent             ;                                                                                ; EmailTopSlot                               ; true
+                                    ;           ; BottomContent-QuestionEmail ; BottomContent          ;                                                                                ; EmailBottomSlot                            ; true

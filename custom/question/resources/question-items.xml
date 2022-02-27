@@ -8,6 +8,10 @@
 
 <items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 			xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="QuestionList" elementtype="Question" autocreate="true" generate="false" type="list"/>
+	</collectiontypes>
 	<relations>
 		<relation code="Question2Product" localized="false">
 			<sourceElement qualifier="product" type="Product" cardinality="one">
@@ -88,6 +92,15 @@
 				</attribute>
 				<attribute qualifier="answerCustomer" type="Customer">
 					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="QuestionEmailProcess" autocreate="true" generate="true"
+				  jaloclass="com.question.jalo.custom.QuestionEmailProcess" extends="StoreFrontCustomerProcess">
+			<attributes>
+				<attribute qualifier="questions" type="QuestionList">
+					<persistence type="property"/>
 				</attribute>
 			</attributes>
 		</itemtype>
